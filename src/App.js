@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 
-// import RegistrationPage from "./Pages/PublicPages/RegistrationPage";
+import RegistrationPage from "./Pages/PublicPages/RegistrationPage";
 import LoginPage from "./Pages/PublicPages/LoginPage";
 
 //autorisation
@@ -18,9 +18,9 @@ function App() {
         </Routes>)
         :
         (<Routes>
-          <Route path='/registration' element ={<></>}/>
+          <Route path='/registration' element ={<RegistrationPage/>}/>
           <Route path='/login' element ={<LoginPage/>}/>
-          <Route path='*' element ={<Navigate replace to='/login'/>}/>
+          <Route path='*' element ={<Navigate replace to='/registration'/>}/>
         </Routes>)
       }
     </>
