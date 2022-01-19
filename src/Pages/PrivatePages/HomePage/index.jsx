@@ -6,10 +6,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 
 import TodoCard from "../../../Components/TodoCard";
+import NoTodos from "../../../Components/NoTodos";
 
-const todos = [
+let todos = [
     {
         id: 1,
         text: '1',
@@ -21,6 +24,7 @@ const todos = [
         state: 'Incompleted',
     },
 ]
+// todos = undefined
 
 const HomePage = () => {
     const [filter, setFilter] = useState('All')
@@ -58,16 +62,20 @@ const HomePage = () => {
                 </Select>
             </Box>
             {todos 
-            ? <>
+            ? 
+            <List>
                 {todos.map(({id, text, state}) => 
-                <TodoCard 
-                    key ={id}
-                    text={text}
-                    state={state} 
-                />)}
-            </>
+                <ListItem key ={id}>
+                    <TodoCard 
+                        id={id}
+                        text={text}
+                        state={state} 
+                    />
+                </ListItem>
+                )}
+            </List>
             :
-             (<p>not todos</p>)
+             (<NoTodos/>)
             }
         </Box>
     )
