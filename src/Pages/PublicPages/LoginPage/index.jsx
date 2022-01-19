@@ -1,4 +1,3 @@
-import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -7,7 +6,6 @@ import Button from "@mui/material/Button";
 const LoginPage = () => {
 
   return (
-    <Container>
         <Box>
             <Typography component="h2">
                 Sign in
@@ -32,7 +30,6 @@ const LoginPage = () => {
                 </Button>
             </Box>
         </Box>
-    </Container>
   );
 }
 
