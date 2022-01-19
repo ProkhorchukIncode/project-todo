@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
+import TodoCard from "../../../Components/TodoCard";
+
 const todos = [
     {
         id: 1,
@@ -56,8 +58,14 @@ const HomePage = () => {
                 </Select>
             </Box>
             {todos 
-            ?
-             (<p>todos</p>)
+            ? <>
+                {todos.map(({id, text, state}) => 
+                <TodoCard 
+                    key ={id}
+                    text={text}
+                    state={state} 
+                />)}
+            </>
             :
              (<p>not todos</p>)
             }
