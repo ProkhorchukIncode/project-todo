@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import RegistrationPage from "./Pages/PublicPages/RegistrationPage";
 import LoginPage from "./Pages/PublicPages/LoginPage";
 import HomePage from "./Pages/PrivatePages/HomePage";
+import TodoPage from "./Pages/PrivatePages/TodoPage";
 
 import NavigationBar from "./Components/NavigationBar";
 
@@ -19,7 +20,7 @@ function App() {
           ? 
           (<Routes>
             <Route path='/home' element ={<HomePage/>}/>
-            <Route path='/todo/:id' element ={<></>}/>
+            <Route path='/todo/:id' element ={<TodoPage/>}/>
             <Route path='*' element ={<Navigate replace to='/home'/>}/>
           </Routes>)
           :
