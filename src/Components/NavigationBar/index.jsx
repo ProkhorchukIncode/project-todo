@@ -24,7 +24,7 @@ const NavigationBar =({auth}) => {
     const isActiveLink = (path) => {
         if(path.includes('/:id')){
             path = path.slice(0,-4);
-            if(path=== pathname.slice(0,-2)){
+            if(path=== pathname.slice(0,-4)){
                 return 'activeLink'
             }
         }
