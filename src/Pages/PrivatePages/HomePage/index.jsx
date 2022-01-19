@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
@@ -66,11 +67,13 @@ const HomePage = () => {
             <List>
                 {todos.map(({id, text, state}) => 
                 <ListItem key ={id}>
-                    <TodoCard 
-                        id={id}
-                        text={text}
-                        state={state} 
-                    />
+                    <Link to={`/todo/${id}`}>
+                        <TodoCard 
+                            id={id}
+                            text={text}
+                            state={state} 
+                        />
+                    </Link>
                 </ListItem>
                 )}
             </List>
