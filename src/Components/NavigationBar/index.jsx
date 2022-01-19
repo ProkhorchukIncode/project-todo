@@ -1,19 +1,46 @@
+import {Link} from "react-router-dom";
+import { useLocation} from "react-router-dom";
+import { privateRoutes, publicRoutes } from "../../Routes/routes.js";
+
 import Box from "@mui/system/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import {Link} from "react-router-dom";
 
-const NavigationBar =() => {
+import './NavigationBar.css'
+
+const NavigationBar =({auth}) => {
+    const {pathname} = useLocation()
+
+    let routes = publicRoutes
+    const getRoutes = (auth) => {
+        if(auth){
+           routes = privateRoutes
+        } 
+        return routes
+    }
+    getRoutes(auth)
+
+    const isActiveLink = (path) => {
+        if(path=== pathname){
+            return 'activeLink'
+        }
+        return 'link'
+    }
+
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
             <AppBar position="static">
                 <Toolbar>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     TODO
                 </Typography>
-                  <Link to="/registration">Sign up</Link>
-                  <Link to="/login">Sign in</Link>
+                    {routes.map(({name,path})=> {
+                        return(
+                        <Link to={path} key={path} className={isActiveLink(path)}>
+                            {name}
+                        </Link>)
+                    })}
                 </Toolbar>
             </AppBar>
         </Box>

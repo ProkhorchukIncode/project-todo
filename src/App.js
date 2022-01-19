@@ -12,7 +12,7 @@ const auth = false
 
 function App() {
   return (<>
-      <NavigationBar/>
+      <NavigationBar auth ={auth}/>
       <Container>
         {auth 
           ? 
