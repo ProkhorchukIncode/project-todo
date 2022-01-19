@@ -22,6 +22,13 @@ const NavigationBar =({auth}) => {
     getRoutes(auth)
 
     const isActiveLink = (path) => {
+        if(path.includes('/:id')){
+            path = path.slice(0,-4);
+            if(path=== pathname.slice(0,-2)){
+                return 'activeLink'
+            }
+        }
+
         if(path=== pathname){
             return 'activeLink'
         }
