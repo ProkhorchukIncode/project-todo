@@ -1,7 +1,8 @@
 import Card from "@mui/material/Card";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
+import ButtonsGroup from "../ButtonsGroup";
 
 const TodoCard = ({id, text, state}) => {
 
@@ -10,17 +11,7 @@ const TodoCard = ({id, text, state}) => {
             <Box>
                 <Typography>{text}</Typography>
             </Box>
-            <Box>
-                <Button>
-                    Ok
-                </Button>
-                <Button>
-                    Change
-                </Button>
-                <Button>
-                    Delete
-                </Button>
-            </Box>
+            <ButtonsGroup/>
         </Card>
     )
 }

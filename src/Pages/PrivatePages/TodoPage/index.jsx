@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 
 import NoComments from "../../../Components/NoComments"
+import ButtonsGroup from "../../../Components/ButtonsGroup"
 
 let data = {
     id: 1,
@@ -34,17 +34,7 @@ const TodoPage = () => {
                 : <NoComments/>
             }
             </Box>
-            <Box>
-                <Button>
-                    Ok
-                </Button>
-                <Button>
-                    Change
-                </Button>
-                <Button>
-                    Delete
-                </Button>
-            </Box>
+            <ButtonsGroup/>
             <Link to='/home'>&#10094; To Home</Link>
         </Box>
     )
