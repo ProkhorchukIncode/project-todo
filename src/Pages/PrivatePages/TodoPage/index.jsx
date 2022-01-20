@@ -4,6 +4,8 @@ import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
+import NoComments from "../../../Components/NoComments"
+
 let data = {
     id: 1,
     text: '1',
@@ -29,7 +31,7 @@ const TodoPage = () => {
                 {comment ? <>
                     <Typography>{comment}</Typography>
                 </>
-                : <Typography>No comments</Typography>
+                : <NoComments/>
             }
             </Box>
             <Box>
