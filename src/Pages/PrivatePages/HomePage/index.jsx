@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
@@ -7,11 +6,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 
-import TodoCard from "../../../Components/TodoCard";
 import NoTodos from "../../../Components/NoTodos";
+
+import TodoList from "../../../Components/TodoList"
 
 let todos = [
     {
@@ -63,20 +61,7 @@ const HomePage = () => {
                 </Select>
             </Box>
             {todos 
-            ? 
-            <List>
-                {todos.map(({id, text, state}) => 
-                <ListItem key ={id}>
-                    <Link to={`/todo/${id}`}>
-                        <TodoCard 
-                            id={id}
-                            text={text}
-                            state={state} 
-                        />
-                    </Link>
-                </ListItem>
-                )}
-            </List>
+            ? <TodoList todos={todos}/>
             :
              (<NoTodos/>)
             }
