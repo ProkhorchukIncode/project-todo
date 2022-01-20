@@ -33,13 +33,13 @@ function App() {
       <NavigationBar auth ={auth}/>
       <Container>
         <RoutesComponent>
-        <Routes>
-          {routes.map(({name, path, component})=> {
-            return <Route path={path} element ={component} key={name}/>
-          })}
-        <Route path='*' element ={<Navigate replace to={routes[0].path}/>}/>
-        </Routes>
-      </RoutesComponent>
+          <Routes>
+            {routes.map(({name, path, component})=> {
+              return <Route path={path} element ={component} key={name}/>
+            })}
+            <Route path='*' element ={<Navigate replace to={routes[0].path}/>}/>
+          </Routes>
+        </RoutesComponent>
       </Container>
     </>
   );
