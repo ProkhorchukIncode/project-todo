@@ -1,6 +1,7 @@
-import {Link} from "react-router-dom";
-import { useLocation} from "react-router-dom";
-import { privateRoutes, publicRoutes } from "../../Routes/routes.js";
+import { useState, useEffect } from "react";
+import {Link, useLocation} from "react-router-dom";
+
+import ROUTES from "../../Routes/routes.js";
 
 import Box from "@mui/system/Box";
 import AppBar from "@mui/material/AppBar";
@@ -9,18 +10,26 @@ import Typography from "@mui/material/Typography";
 
 import './NavigationBar.css'
 
+let routes = ROUTES.PUBLIC_ROUTES
+
 const NavigationBar =({auth}) => {
-    const {pathname} = useLocation()
+    const {pathname} = useLocation();
+    const [routes, setRoutes] = useState(ROUTES.PUBLIC_ROUTES)
 
-    let routes = publicRoutes
-    const getRoutes = (auth) => {
+    const isAuth = (auth) => {
         if(auth){
-           routes = privateRoutes
-        } 
-        return routes
-    }
-    getRoutes(auth)
-
+            setRoutes(ROUTES.PRIVATE_ROUTES)
+            return
+        }
+        setRoutes(ROUTES.PUBLIC_ROUTES)
+        return
+      }
+      
+    
+      useEffect(()=> {
+        isAuth(auth)
+      },[auth])
+    
     const isActiveLink = (path) => {
         if(path.includes('/:id')){
             path = path.slice(0,-4);
@@ -28,13 +37,13 @@ const NavigationBar =({auth}) => {
                 return 'activeLink'
             }
         }
-
+        
         if(path=== pathname){
             return 'activeLink'
         }
         return 'link'
     }
-
+    
     return (
         <Box>
             <AppBar position="static">

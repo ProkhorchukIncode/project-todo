@@ -29,8 +29,6 @@ function App() {
     isAuth(auth)
   },[auth])
 
-  console.log(routes);
-
   return (<>
       <NavigationBar auth ={auth}/>
       <Container>
