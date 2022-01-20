@@ -6,7 +6,6 @@ import ListItem from "@mui/material/ListItem";
 import TodoCard from "../TodoCard";
 
 const TodoList = ({todos}) => {
-    console.log(todos);
     return (<>
         <List>
             {todos.map(({id, text, state}) => 
