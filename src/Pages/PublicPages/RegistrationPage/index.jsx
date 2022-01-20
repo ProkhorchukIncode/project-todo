@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+import { registrationUser } from "../../../Redux/user/userSlice";
+
 const RegistrationPage = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -12,19 +14,33 @@ const RegistrationPage = () => {
 
     const onChange = (event) => {
         switch (event.target.id) {
-            case username:
+            case 'username':
                 setUsername(event.target.value)
                 break;
-            case email:
+            case 'email':
                 setEmail(event.target.value)
                 break;
-            case password:
+            case 'password':
                 setPassword(event.target.value)
                 break;
             default:
                 break;
         }
     }
+    
+    const reset = () => {
+        setUsername('')
+        setEmail('')
+        setPassword('')
+    }
+
+    const onSubmit = (event)=>{
+        event.preventDefault()
+
+        registrationUser(username, email, password);
+        reset()
+    };
+
 
   return (
         <Box>
@@ -38,6 +54,7 @@ const RegistrationPage = () => {
                     label="Your name"
                     name="username"
                     autoComplete="name"
+                    value={username}
                     required
                 />
                 <TextField 
@@ -46,6 +63,7 @@ const RegistrationPage = () => {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    value={email}
                     required
                 />
                 <TextField 
@@ -54,9 +72,10 @@ const RegistrationPage = () => {
                     label="Password"
                     name="password"
                     autoComplete="password"
+                    value={password}
                     required
                 />
-                <Button type="submit">
+                <Button type='submit' onClick={onSubmit}>
                     Sign up
                 </Button>
             </Box>

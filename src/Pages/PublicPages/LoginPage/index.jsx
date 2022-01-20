@@ -5,22 +5,36 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+import { loginUser } from "../../../Redux/user/userSlice";
+
 const LoginPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const onChange = (event) => {
         switch (event.target.id) {
-            case email:
+            case "email":
                 setEmail(event.target.value)
                 break;
-            case password:
+            case "password":
                 setPassword(event.target.value)
                 break;
             default:
                 break;
         }
     }
+
+    const reset = () => {
+        setEmail('')
+        setPassword('')
+    }
+
+    const onSubmit = (event)=>{
+        event.preventDefault()
+
+        loginUser( email, password);
+        reset()
+    };
 
   return (
         <Box>
@@ -34,6 +48,7 @@ const LoginPage = () => {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    value={email}
                     required
                 />
                 <TextField 
@@ -42,9 +57,10 @@ const LoginPage = () => {
                     label="Password"
                     name="password"
                     autoComplete="password"
+                    value={password}
                     required
                 />
-                <Button type="submit">
+                <Button type="submit" onClick={onSubmit}>
                     Sign in
                 </Button>
             </Box>
