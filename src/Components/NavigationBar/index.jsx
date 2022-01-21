@@ -8,9 +8,9 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-import './NavigationBar.css'
+import Logout from "../Logout/index.jsx";
 
-let routes = ROUTES.PUBLIC_ROUTES
+import './NavigationBar.css'
 
 const NavigationBar =({auth}) => {
     const {pathname} = useLocation();
@@ -23,8 +23,7 @@ const NavigationBar =({auth}) => {
         }
         setRoutes(ROUTES.PUBLIC_ROUTES)
         return
-      }
-      
+    }
     
       useEffect(()=> {
         isAuth(auth)
@@ -57,6 +56,7 @@ const NavigationBar =({auth}) => {
                             {name}
                         </Link>)
                     })}
+                    <Logout/>
                 </Toolbar>
             </AppBar>
         </Box>
