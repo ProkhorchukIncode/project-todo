@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import axios from '../../API/axiosInstance'
+import axios from '../../HttpServices/axiosInstance'
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, { rejectWithValue }) => {
   try {

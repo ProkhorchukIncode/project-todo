@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import axios from '../../API/axiosInstance'
-import cookie from '../../cookies'
+import axios from '../../HttpServices/axiosInstance'
 
 export const registrationUser = async(username, email, password)=> {
   axios.post('/auth/registration', {
@@ -10,9 +9,7 @@ export const registrationUser = async(username, email, password)=> {
       username
     })
     .then(function (response) {
-      cookie.save("accessToken", response.data.token, {
-        expires: 7,
-      });
+      localStorage.setItem('token',JSON.stringify(response.data.token));
     })
     .catch(function (error) {
       console.log(error);
@@ -21,11 +18,11 @@ export const registrationUser = async(username, email, password)=> {
 
 export const loginUser = async( email, password)=> {
   axios.post('/auth/login', {
-       email,
-       password
-  })
+      email,
+      password
+    })
     .then(function (response) {
-        localStorage.setItem('token',JSON.stringify(response.data.token))
+      localStorage.setItem('token',JSON.stringify(response.data.token));
     })
     .catch(function (error) {
       console.log(error);
@@ -33,7 +30,7 @@ export const loginUser = async( email, password)=> {
 }
 
 const userSlice = createSlice({
-  name: 'todo',
+  name: 'user',
   initialState: { auth: false },
   reducers: {
     auth: (state) => {
@@ -41,8 +38,10 @@ const userSlice = createSlice({
     },
     noAuth: (state) => {
       state.auth = false
-    }
+  },
   },
 })
+
+export const {auth, noAuth} = userSlice.actions
 
 export default userSlice.reducer
