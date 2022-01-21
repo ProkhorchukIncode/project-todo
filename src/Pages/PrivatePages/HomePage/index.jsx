@@ -11,29 +11,13 @@ import MenuItem from "@mui/material/MenuItem";
 import NoTodos from "../../../Components/NoTodos";
 import TodoList from "../../../Components/TodoList"
 
-import fetchTodos from '../../../Redux/todos/todosSlice'
-
-import axios from "axios";
-
-// let todos = [
-//     {
-//         id: 1,
-//         text: '1',
-//         state: 'Completed',
-//     },
-//     {
-//         id: 2,
-//         text: '2',
-//         state: 'Incompleted',
-//     },
-// ]
-// todos = undefined
+import {fetchTodos} from '../../../Redux/todos/todosSlice'
 
 const HomePage = () => {
     const [filter, setFilter] = useState('All')
     const [newTodo, setNewTodo] = useState('')
 
-    const dispatch = useDispatch;
+    const dispatch = useDispatch();
     const todos = useSelector((state) => state.todo.entities)
 
     const handleChangeFilter = (event) => {
@@ -44,10 +28,9 @@ const HomePage = () => {
         setNewTodo(event.target.value)
     }
     
-
-    // useEffect(() => {
-    //     dispatch(fetchTodos())
-    // },[dispatch])
+    useEffect(() => {
+        dispatch(fetchTodos())
+    },[dispatch])
 
     return (
         <Box sx={{mt:5}}>

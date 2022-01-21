@@ -21,10 +21,10 @@ import Container from "@mui/material/Container";
 
 function App() {
   const [routes, setRoutes] = useState(ROUTES.PUBLIC_ROUTES)
+  const [token, setToken] = useState('')
   const dispatch = useDispatch();
   const authorization = useSelector((state) => state.user.auth)
   
-  const token = localStorage.getItem('token')
   //
   // const a = () => axios.get(`http://localhost:5000/todos`)
   // a()
@@ -53,16 +53,19 @@ function App() {
   }
   
   useEffect(()=> {
+    if (localStorage.getItem("token")?.length > 0) {
+      setToken(localStorage.getItem("token"));
+    }
     if(token){
       dispatch(auth())
     } else {
       dispatch(noAuth())
     }
-    isAuth(token)
-  },[token])
+    isAuth(auth)
+  },[])
 
   return (<>
-      <NavigationBar auth ={token}/>
+      <NavigationBar auth ={auth}/>
       <Container>
         <RoutesComponent>
           <Routes>
