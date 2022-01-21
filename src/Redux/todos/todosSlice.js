@@ -4,7 +4,7 @@ import axios from '../../HttpServices/axiosInstance'
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`todos`)
+    const response = await axios.get(`/todos`);
     return response.data
   } catch (err) {
     let error = err; 
@@ -19,6 +19,9 @@ const todosSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchTodos.fulfilled, (state, action) => {
       state.entities = action.payload
+    })
+    builder.addCase(fetchTodos.rejected, (state, action) => {
+      state.error = action.payload
     })
   },
 })
