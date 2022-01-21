@@ -1,15 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import axios from '../../API/axiosInstance'
+import cookie from '../../cookies'
 
 export const registrationUser = async(username, email, password)=> {
   axios.post('/auth/registration', {
-       email,
-       password,
-       username
-  })
+      email,
+      password,
+      username
+    })
     .then(function (response) {
-        localStorage.setItem('token',JSON.stringify(response.data.token))
+      cookie.save("accessToken", response.data.token, {
+        expires: 7,
+      });
     })
     .catch(function (error) {
       console.log(error);
