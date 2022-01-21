@@ -27,10 +27,15 @@ let todos = [
 
 const HomePage = () => {
     const [filter, setFilter] = useState('All')
+    const [newTodo, setNewTodo] = useState('')
 
-    const handleChange = (event) => {
+    const handleChangeFilter = (event) => {
         setFilter(event.target.value);
     };
+
+    const handleChangeNewTodo = (event) => {
+        setNewTodo(event.target.value)
+    }
 
     return (
         <Box sx={{mt:5}}>
@@ -43,6 +48,8 @@ const HomePage = () => {
                         id="name"
                         label="Enter the todo"
                         name='name'
+                        value={newTodo}
+                        onChange={handleChangeNewTodo}
                     />
                     <Button sx={{zIndex: 'tooltip', right: 60, top:10}}>
                         +
@@ -53,7 +60,7 @@ const HomePage = () => {
                     id="filter"
                     value={filter}
                     label="All"
-                    onChange={handleChange}
+                    onChange={handleChangeFilter}
                     >
                     <MenuItem value={'All'}>All</MenuItem>
                     <MenuItem value={'Completed'}>Completed</MenuItem>
