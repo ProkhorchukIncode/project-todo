@@ -1,6 +1,8 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+import { auth, noAuth } from "./Redux/user/userSlice";
 
 import NavigationBar from "./Components/NavigationBar";
 import RoutesComponent from "./Components/RoutesComponent";
@@ -19,13 +21,13 @@ import Container from "@mui/material/Container";
 
 function App() {
   const [routes, setRoutes] = useState(ROUTES.PUBLIC_ROUTES)
-  // const dispatch = useDispatch;
-  // const authorization = useSelector((state) => state.user.auth)
+  const dispatch = useDispatch();
+  const authorization = useSelector((state) => state.user.auth)
   
   const token = localStorage.getItem('token')
   //
-  const a = () => axios.get(`http://localhost:5000/todos`)
-  a()
+  // const a = () => axios.get(`http://localhost:5000/todos`)
+  // a()
 
   axiosInstance.interceptors.request.use(createSetAuthInterceptor(token));
   axios.interceptors.response.use(
@@ -51,7 +53,11 @@ function App() {
   }
   
   useEffect(()=> {
-    // dispatch(auth())
+    if(token){
+      dispatch(auth())
+    } else {
+      dispatch(noAuth())
+    }
     isAuth(token)
   },[token])
 

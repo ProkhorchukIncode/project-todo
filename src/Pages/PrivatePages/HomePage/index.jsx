@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
@@ -8,26 +9,32 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 import NoTodos from "../../../Components/NoTodos";
-
 import TodoList from "../../../Components/TodoList"
 
-let todos = [
-    {
-        id: 1,
-        text: '1',
-        state: 'Completed',
-    },
-    {
-        id: 2,
-        text: '2',
-        state: 'Incompleted',
-    },
-]
+import fetchTodos from '../../../Redux/todos/todosSlice'
+
+import axios from "axios";
+
+// let todos = [
+//     {
+//         id: 1,
+//         text: '1',
+//         state: 'Completed',
+//     },
+//     {
+//         id: 2,
+//         text: '2',
+//         state: 'Incompleted',
+//     },
+// ]
 // todos = undefined
 
 const HomePage = () => {
     const [filter, setFilter] = useState('All')
     const [newTodo, setNewTodo] = useState('')
+
+    const dispatch = useDispatch;
+    const todos = useSelector((state) => state.todo.entities)
 
     const handleChangeFilter = (event) => {
         setFilter(event.target.value);
@@ -36,6 +43,11 @@ const HomePage = () => {
     const handleChangeNewTodo = (event) => {
         setNewTodo(event.target.value)
     }
+    
+
+    // useEffect(() => {
+    //     dispatch(fetchTodos())
+    // },[dispatch])
 
     return (
         <Box sx={{mt:5}}>
