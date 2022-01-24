@@ -1,57 +1,94 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import axios from '../../HttpServices/axiosInstance'
+import axios from 'axios'
+import axiosInstance from '../../HttpServices/axiosInstance';
 
-export const refreshToken = async()=> {
-  axios.get('/auth/refresh')
+export const refreshToken = createAsyncThunk('user/refresh', async( )=> {
+  axios.get('http://localhost:5000/auth/refresh', {
+      withCredentials: true,
+    })
     .then(function (response) {
+      console.log('refreshToken use');
       localStorage.setItem('token',JSON.stringify(response.data.token));
     })
     .catch(function (error) {
-      console.log(error);
+      const e = error
+      localStorage.setItem('token','');
+      console.log('refreshToken error');
+      return e
     })
-}
+})
 
-export const registrationUser = async(username, email, password)=> {
-  axios.post('/auth/registration', {
+export const registrationUser = createAsyncThunk('user/registration', async( data)=> {
+  const {username, email, password} = data
+     axiosInstance.post('/auth/registration', {
+      username,
       email,
       password,
-      username
+    }).then((response)=>{
+      localStorage.setItem('token', JSON.stringify(response.data.token))
     })
-    .then(function (response) {
-      localStorage.setItem('token',JSON.stringify(response.data.token));
+    .catch((error)=> {
+      console.log('registrationUser error');
+      return error;
     })
-    .catch(function (error) {
-      console.log(error);
-    })
-}
+  }
+)
 
-export const loginUser = async( email, password)=> {
-  axios.post('/auth/login', {
+export const loginUser = createAsyncThunk('user/logIn', async( data)=> {
+  const {email, password} = data
+     axiosInstance.post('/auth/login', {
       email,
-      password
+      password,
+    }).then((response)=>{
+      localStorage.setItem('token', JSON.stringify(response.data.token))
     })
+    .catch((error)=> {
+      console.log('loginUser error');
+      return error;
+    })
+  }
+)
+
+export const logOut = createAsyncThunk('user/logOut', async()=> {
+  axiosInstance.get('/auth/logout')
     .then(function (response) {
-      localStorage.setItem('token',JSON.stringify(response.data.token));
+      localStorage.setItem('token', '')
     })
     .catch(function (error) {
-      console.log(error);
+      const e = error
+      console.log('loginOut error');
+      return e
     })
-}
+})
 
 const userSlice = createSlice({
   name: 'user',
   initialState: { auth: false },
-  reducers: {
-    auth: (state) => {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(registrationUser.fulfilled, (state, action) => {
       state.auth = true
-    },
-    noAuth: (state) => {
+    })
+    builder.addCase(registrationUser.rejected, (state, action) => {
       state.auth = false
-  },
+    })
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.auth = true
+    })
+    builder.addCase(loginUser.rejected, (state, action) => {
+      state.auth = false
+    })
+    builder.addCase(logOut.fulfilled, (state, action) => {
+      state.auth = false
+    })
+    builder.addCase(refreshToken.fulfilled, (state, action) => {
+      state.auth = true
+    })
+    builder.addCase(refreshToken.rejected, (state, action) => {
+      state.auth = false
+    })
   },
 })
-
-export const {auth, noAuth} = userSlice.actions
 
 export default userSlice.reducer

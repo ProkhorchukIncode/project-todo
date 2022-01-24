@@ -8,7 +8,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-import Logout from "../Logout/index.jsx";
+import LogOut from "../LogOut";
 
 import './NavigationBar.css'
 
@@ -56,7 +56,7 @@ const NavigationBar =({auth}) => {
                             {name}
                         </Link>)
                     })}
-                    <Logout/>
+                    <LogOut/>
                 </Toolbar>
             </AppBar>
         </Box>

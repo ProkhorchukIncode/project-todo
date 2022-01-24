@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
@@ -8,6 +9,7 @@ import Button from "@mui/material/Button";
 import { registrationUser } from "../../../Redux/user/userSlice";
 
 const RegistrationPage = () => {
+    const dispatch = useDispatch()
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -36,8 +38,10 @@ const RegistrationPage = () => {
 
     const onSubmit = (event)=>{
         event.preventDefault()
-
-        registrationUser(username, email, password);
+        const newObj = {
+            username: username, email: email, password: password
+        }
+        dispatch(registrationUser(newObj));
         reset()
     };
 
