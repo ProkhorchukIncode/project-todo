@@ -8,6 +8,7 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_, { rejec
     return response.data
   } catch (err) {
     let error = err; 
+    console.log("fetchTodos error");
     return rejectWithValue(error);
   }
 })

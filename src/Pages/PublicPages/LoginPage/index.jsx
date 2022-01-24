@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
@@ -8,6 +9,7 @@ import Button from "@mui/material/Button";
 import { loginUser } from "../../../Redux/user/userSlice";
 
 const LoginPage = () => {
+    const dispatch= useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -31,8 +33,10 @@ const LoginPage = () => {
 
     const onSubmit = (event)=>{
         event.preventDefault()
-
-        loginUser( email, password);
+        const newObj = {
+            email: email, password: password
+        }
+        dispatch(loginUser(newObj));
         reset()
     };
 

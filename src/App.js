@@ -2,22 +2,16 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { auth, noAuth } from "./Redux/user/userSlice";
 
 import NavigationBar from "./Components/NavigationBar";
 import RoutesComponent from "./Components/RoutesComponent";
 
 import ROUTES from "./Routes/routes";
 
-import axios from "axios";
 import axiosInstance from './HttpServices/axiosInstance'
 import { refreshToken } from "./Redux/user/userSlice";
-import createSetAuthInterceptor from "./HttpServices/axiosInterceptor";
-import axiosResponse from "./HttpServices/axiosResponse";
 
 import Container from "@mui/material/Container";
-
-
 
 function App() {
   const [routes, setRoutes] = useState(ROUTES.PUBLIC_ROUTES)
@@ -25,24 +19,6 @@ function App() {
   const dispatch = useDispatch();
   const authorization = useSelector((state) => state.user.auth)
   
-  //
-  // const a = () => axios.get(`http://localhost:5000/todos`)
-  // a()
-
-  axiosInstance.interceptors.request.use(createSetAuthInterceptor(token));
-  axios.interceptors.response.use(
-    (res) => {
-      return res;
-   },
-    (err) => {
-      let error = err
-      if(error.response.status===401){
-        refreshToken()
-      }
-      return {}
-   }
-    )
-//
   const isAuth = (authorization) => {
     if(authorization){
       setRoutes(ROUTES.PRIVATE_ROUTES)
@@ -51,21 +27,26 @@ function App() {
     setRoutes(ROUTES.PUBLIC_ROUTES)
     return
   }
-  
+// console.log(token);
   useEffect(()=> {
-    if (localStorage.getItem("token")?.length > 0) {
+    if (localStorage.getItem("token").length > 0) {
+      dispatch(refreshToken())
       setToken(localStorage.getItem("token"));
     }
-    if(token){
-      dispatch(auth())
-    } else {
-      dispatch(noAuth())
-    }
-    isAuth(auth)
-  },[])
+    isAuth(authorization)
+  },[dispatch, authorization])
 
   return (<>
-      <NavigationBar auth ={auth}/>
+  
+  <button onClick={()=>{
+    try{
+      axiosInstance.get(`http://localhost:5000/todos`)
+    } catch(e){
+      console.log('all error');
+    }
+  }}>123</button>
+
+      <NavigationBar auth ={authorization}/>
       <Container>
         <RoutesComponent>
           <Routes>
